@@ -1,0 +1,20 @@
+[wxflows.deployment]
+endpoint_name = "wxflows-genai/psiqueyserorg"
+# Example flows.
+flows="""
+    // myPrompt = ragAnswerInput | topNDocs | promptFromTopN | ragInfo
+    myRag = ragAnswerInput | topNDocs | promptFromTopN | completion(parameters:myRag.parameters) | ragInfo
+    // myRagWithGuardrails = ragAnswerInput | topNDocs | promptFromTopN | completion(parameters:myRagWithGuardrails.parameters) | ragScoreInfo | hallucinationScore | ragScoreMessage | ragInfo
+"""
+ai_engine = "WATSONX"
+
+[wxflows.deployment.source.aicore]
+# RAG configuration
+collection="psiqueyserorg"
+tsv_files = ["psiqueyserorg.tsv"]
+embedding_model="ibm/slate-30m-english-rtrvr"
+data_type = "md"
+data_directory = "./psiqueyserorg"
+chunk_size = 500
+chunk_overlap = 50
+documentstore.type="gettingStarted"
